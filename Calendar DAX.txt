@@ -1,0 +1,19 @@
+Calendar = 
+-----------------------------------------
+    VAR MinDate = Min('Sales'[Order Date])
+    VAR MaxDate = MAX('Sales'[Ship Date])
+
+    VAR Result = AddColumns(Calendar(MinDate, MaxDate),
+    "Date Key", FORMAT ( [Date], "YYYYMMDD" ), //NumericDate
+    "Year", YEAR([Date]),
+    "Month Name" , FORMAT ( [Date], "mmmm" ) ,
+    "Month Short Name" , FORMAT ( [Date], "mmm" ) ,
+    "Month Number", MONTH([Date]),
+    "Year Month", YEAR([Date]) & "-" & RIGHT("0" & Month([Date]), 2),
+    "Month Year",  YEAR([Date]) & FORMAT ( [Date], " mmm" )  ,
+    "Day Name", FORMAT ( [Date], "dddd" ), //Name for Each day of the week
+    "Day Short Name", FORMAT ( [Date],  "ddd" ),
+    "Day Number" , WEEKDAY ( [Date] )  //Sunday is 1
+
+    )
+RETURN Result
